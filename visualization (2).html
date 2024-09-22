@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.30.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.26.0"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Road Traffic Death Rate (per 100,000 population, 2016)",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/ne_110m.topojson",
+    "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+  },
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "transform": [
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"},
+      "encoding": {"tooltip": {"field": "note"}}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/ne_110m.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/roadTrafficDeaths.csv"
+            },
+            "key": "Location",
+            "fields": ["First Tooltip"]
+          }
+        },
+        {
+          "calculate": "isValid(datum['First Tooltip']) ? datum['First Tooltip'] : 1",
+          "as": "Death Rate"
+        }
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "field": "Death Rate",
+          "type": "quantitative",
+          "scale": {
+            "type": "log",
+            "domain": [1, 50],
+            "range": ["#e7e1ef", "#00429d"]
+          }
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {
+            "field": "First Tooltip",
+            "type": "quantitative",
+            "title": "Death Rate",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/countryInfo.csv"
+            },
+            "key": "name",
+            "fields": ["latitude", "longitude"]
+          }
+        }
+      ],
+      "mark": {"type": "text"},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "text": {"field": "properties.NAME", "type": "nominal"},
+        "opacity": {
+          "condition": {
+            "test": "datum['properties.NAME'] == 'China' || datum['properties.NAME'] == 'Brazil' || datum['properties.NAME'] == 'Australia' || datum['properties.NAME'] == 'Malaysia' ||  datum['properties.NAME'] == 'Zimbabwe' ||  datum['properties.NAME'] == 'United States of America'",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
