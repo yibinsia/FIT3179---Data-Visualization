@@ -1,0 +1,148 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Global GDP (2023)",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.ISO_A3",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/Cleaned_Global_GDP_Dataset_with_Valid_ISO_Codes.csv"
+            },
+            "key": "Country Code",
+            "fields": ["GDP"]
+          }
+        },
+        {
+          "calculate": "'Data is not available in ' + datum.properties.NAME",
+          "as": "note"
+        }
+      ],
+      "mark": {"type": "geoshape", "fill": "#d9d9d9", "stroke": "white"},
+      "encoding": {
+        "tooltip": {
+          "condition": {
+            "test": "datum.GDP == null",
+            "field": "note",
+            "type": "nominal"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/oceans.topojson",
+        "format": {"type": "topojson", "feature": "oceans"}
+      },
+      "mark": {"type": "geoshape", "fill": "skyblue"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/ne_110m.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_graticules_30"}
+      },
+      "mark": {"type": "geoshape", "fill": null, "stroke": "lightgray"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.ISO_A3",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/Cleaned_Global_GDP_Dataset_with_Valid_ISO_Codes.csv"
+            },
+            "key": "Country Code",
+            "fields": ["GDP"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape"},
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum.GDP > 0",
+            "field": "GDP",
+            "type": "quantitative",
+            "scale": {
+              "type": "log",
+              "domain": [0.01, 10000],
+              "range": ["#f7fbff", "#08306b"]
+            },
+            "legend": {"title": "GDP (Billions USD)", "format": ".2f"}
+          },
+          "value": "#d9d9d9"
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {
+            "field": "GDP",
+            "type": "quantitative",
+            "title": "GDP (USD Billions)",
+            "format": ".2f"
+          }
+        ],
+        "opacity": {
+          "condition": {"selection": "brush", "value": 1},
+          "value": 0.3
+        }
+      },
+      "selection": {
+        "brush": {
+          "type": "interval",
+          "on": "[mousedown, mouseup] > mousemove",
+          "translate": "[mousedown, mouseup] > mousemove",
+          "zoom": "wheel",
+          "clear": "dblclick"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Country": "United States",
+            "Longitude": -95.7129,
+            "Latitude": 37.0902
+          },
+          {"Country": "China", "Longitude": 104.1954, "Latitude": 35.8617},
+          {"Country": "Japan", "Longitude": 138.2529, "Latitude": 36.2048},
+          {"Country": "Germany", "Longitude": 10.4515, "Latitude": 51.1657},
+          {"Country": "India", "Longitude": 78.9629, "Latitude": 20.5937},
+          {
+            "Country": "United Kingdom",
+            "Longitude": -3.436,
+            "Latitude": 55.3781
+          },
+          {"Country": "France", "Longitude": 2.2137, "Latitude": 46.6034},
+          {"Country": "Russia", "Longitude": 105.3188, "Latitude": 61.524},
+          {"Country": "Canada", "Longitude": -106.3468, "Latitude": 56.1304},
+          {"Country": "Italy", "Longitude": 12.5674, "Latitude": 41.8719}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fontWeight": "bold",
+        "color": "white"
+      },
+      "encoding": {
+        "longitude": {"field": "Longitude", "type": "quantitative"},
+        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "text": {"field": "Country", "type": "nominal"}
+      }
+    }
+  ],
+  "config": {}
+}
