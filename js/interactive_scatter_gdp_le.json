@@ -97,13 +97,32 @@
         },
         "opacity": {"value": 0.6},
         "tooltip": [
-          {"field": "Country Name", "type": "nominal"},
-          {"field": "GDP", "type": "quantitative", "format": ","},
-          {"field": "Population", "type": "quantitative", "format": ","},
+          {
+            "field": "Country Name",
+            "type": "nominal",
+            "title": "Country",
+            "fontWeight": "bold"
+          },
+          {
+            "field": "GDP",
+            "type": "quantitative",
+            "title": "GDP (USD Billions)",
+            "format": ".2f",  
+            "fontWeight": "bold"
+          },
+          {
+            "field": "Population",
+            "type": "quantitative",
+            "title": "Population",
+            "format": ".0f",  
+            "fontWeight": "bold"
+          },
           {
             "field": "2023 Life Expectancy",
             "type": "quantitative",
-            "format": ".2f"
+            "title": "Life Expectancy",
+            "format": ".2f",
+            "fontWeight": "bold"
           }
         ]
       }
