@@ -6,13 +6,6 @@
   },
   "width": 500,
   "height": 400,
-  "title": {
-    "text": "Distribution of GDP by Region (2023)",
-    "font": "Georgia",
-    "fontSize": 30,
-    "anchor": "middle",
-    "color": "black"
-  },
   "transform": [
     {
       "aggregate": [{"op": "sum", "field": "GDP", "as": "Total_GDP"}],
