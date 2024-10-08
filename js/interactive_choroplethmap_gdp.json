@@ -7,14 +7,6 @@
   },
   "vconcat": [
     {
-      "title": {
-        "text": "Global GDP (2023)",
-        "anchor": "middle",
-        "fontSize": 30,
-        "font": "Georgia",
-        "fontWeight": "bold"
-      },
-      "background": "#f0f0f0",
       "width": 800,
       "height": 400,
       "projection": {"type": "equalEarth"},
