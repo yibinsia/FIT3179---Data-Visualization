@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP_Data_in_Billions_with_Continent.csv",
+    "format": {"type": "csv"}
+  },
+  "vconcat": [
+    {
+      "description": "Main chart showing GDP by country with color-coded continents.",
+      "title": {
+        "text": "Top 10 GDP Countries in Recent Years",
+        "font": "Georgia",
+        "fontSize": 30,
+        "anchor": "middle",
+        "color": "black"
+      },
+      "width": 500,
+      "height": 300,
+      "mark": {"type": "line", "point": {"filled": true, "size": 50}},
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {
+            "titleFont": "Georgia",
+            "titleFontSize": 16,
+            "labelFont": "Georgia",
+            "labelFontSize": 14
+          }
+        },
+        "y": {
+          "field": "GDP",
+          "type": "quantitative",
+          "title": "GDP (Billions)",
+          "scale": {"type": "log", "domain": [1000, 30000]},
+          "axis": {
+            "format": "$,d",
+            "titleFont": "Georgia",
+            "titleFontSize": 16,
+            "labelFont": "Georgia",
+            "labelFontSize": 14
+          }
+        },
+        "color": {
+          "field": "Continent",
+          "type": "nominal",
+          "title": "Continent",
+          "scale": {
+            "domain": ["Asia", "Europe", "North America", "South America"],
+            "range": ["#009e73", "#984ea3", "#0072B2", "#FF69B4"]
+          }
+        },
+        "opacity": {"condition": {"param": "hover", "value": 1}, "value": 0.2},
+        "tooltip": [
+          {"field": "Country Name", "type": "nominal", "title": "Country"},
+          {"field": "Year", "type": "temporal", "title": "Year"},
+          {
+            "field": "GDP",
+            "type": "quantitative",
+            "title": "GDP",
+            "format": "$,.0f"
+          }
+        ],
+        "detail": {"field": "Country Name"}
+      },
+      "params": [
+        {
+          "name": "hover",
+          "select": {
+            "type": "point",
+            "fields": ["Country Name"],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ]
+    },
+    {
+      "description": "Brush chart for selecting the time range",
+      "width": 500,
+      "height": 60,
+      "mark": "point",
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {
+            "titleFont": "Georgia",
+            "titleFontSize": 16,
+            "labelFont": "Georgia",
+            "labelFontSize": 14
+          }
+        },
+        "y": {
+          "field": "GDP",
+          "type": "quantitative",
+          "axis": {
+            "tickCount": 3,
+            "grid": false,
+            "format": "$,d",
+            "titleFont": "Georgia",
+            "titleFontSize": 16,
+            "labelFont": "Georgia",
+            "labelFontSize": 14
+          },
+          "scale": {"domain": [1000, 30000]}
+        },
+        "color": {"value": "lightgray"}
+      }
+    }
+  ],
+  "config": {
+    "axis": {"labelFont": "Georgia", "titleFont": "Georgia"},
+    "legend": {"labelFont": "Georgia", "titleFont": "Georgia"},
+    "header": {"labelFont": "Georgia", "titleFont": "Georgia"}
+  }
+}

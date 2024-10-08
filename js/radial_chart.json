@@ -1,0 +1,90 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Radial chart showing the distribution of GDP by region (2023) with percentages displayed beside each arc",
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP2023.csv"
+  },
+  "width": 500,
+  "height": 400,
+  "title": {
+    "text": "Distribution of GDP by Region (2023)",
+    "font": "Georgia",
+    "fontSize": 20,
+    "anchor": "middle",
+    "color": "black"
+  },
+  "transform": [
+    {
+      "aggregate": [{"op": "sum", "field": "GDP", "as": "Total_GDP"}],
+      "groupby": ["region"]
+    },
+    {
+      "window": [{"op": "sum", "field": "Total_GDP", "as": "Global_GDP"}],
+      "frame": [null, null]
+    },
+    {
+      "calculate": "datum.Total_GDP / datum.Global_GDP * 100",
+      "as": "GDP_Percentage"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "arc", "innerRadius": 30, "stroke": "#fff"},
+      "encoding": {
+        "theta": {"field": "Total_GDP", "type": "quantitative", "stack": true},
+        "radius": {
+          "field": "Total_GDP",
+          "scale": {"type": "sqrt", "zero": true, "rangeMin": 60}
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {"scheme": "tableau20"},
+          "legend": {
+            "title": "Region",
+            "titleFont": "Georgia",
+            "labelFont": "Georgia"
+          }
+        },
+        "tooltip": [
+          {"field": "region", "type": "nominal", "title": "Region"},
+          {
+            "field": "Total_GDP",
+            "type": "quantitative",
+            "title": "Total GDP",
+            "format": ".2f"
+          },
+          {
+            "field": "GDP_Percentage",
+            "type": "quantitative",
+            "title": "Percentage of Global GDP",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 18,
+        "fontSize": 12,
+        "font": "Georgia",
+        "align": "center"
+      },
+      "encoding": {
+        "text": {
+          "field": "GDP_Percentage",
+          "type": "quantitative",
+          "format": ".2f"
+        },
+        "theta": {"field": "Total_GDP", "type": "quantitative", "stack": true},
+        "radius": {
+          "field": "Total_GDP",
+          "scale": {"type": "sqrt", "zero": true, "rangeMin": 60}
+        },
+        "color": {"field": "region", "type": "nominal", "legend": null}
+      }
+    }
+  ],
+  "config": {}
+}
