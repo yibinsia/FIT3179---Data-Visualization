@@ -1,0 +1,141 @@
+Country Name,Country Code,Year,GDP,Continent
+Brazil,BRA,2010,2208.84,South America
+Canada,CAN,2010,1617.34,North America
+China,CHN,2010,6087.19,Asia
+Germany,DEU,2010,3399.67,Europe
+France,FRA,2010,2645.19,Europe
+United Kingdom,GBR,2010,2485.48,Europe
+India,IND,2010,1675.62,Asia
+Italy,ITA,2010,2136.1,Europe
+Japan,JPN,2010,5759.07,Asia
+United States,USA,2010,15049.0,North America
+Brazil,BRA,2011,2616.16,South America
+Canada,CAN,2011,1793.33,North America
+China,CHN,2011,7551.55,Asia
+Germany,DEU,2011,3749.31,Europe
+France,FRA,2011,2865.16,Europe
+United Kingdom,GBR,2011,2663.81,Europe
+India,IND,2011,1823.05,Asia
+Italy,ITA,2011,2294.99,Europe
+Japan,JPN,2011,6233.15,Asia
+United States,USA,2011,15599.7,North America
+Brazil,BRA,2012,2465.23,South America
+Canada,CAN,2012,1828.37,North America
+China,CHN,2012,8532.19,Asia
+Germany,DEU,2012,3527.14,Europe
+France,FRA,2012,2683.67,Europe
+United Kingdom,GBR,2012,2707.09,Europe
+India,IND,2012,1827.64,Asia
+Italy,ITA,2012,2086.96,Europe
+Japan,JPN,2012,6272.36,Asia
+United States,USA,2012,16254.0,North America
+Brazil,BRA,2013,2472.82,South America
+Canada,CAN,2013,1846.6,North America
+China,CHN,2013,9570.47,Asia
+Germany,DEU,2013,3733.8,Europe
+France,FRA,2013,2811.88,Europe
+United Kingdom,GBR,2013,2784.85,Europe
+India,IND,2013,1856.72,Asia
+Italy,ITA,2013,2141.92,Europe
+Japan,JPN,2013,5212.33,Asia
+United States,USA,2013,16880.7,North America
+Brazil,BRA,2014,2456.04,South America
+Canada,CAN,2014,1805.75,North America
+China,CHN,2014,10475.6,Asia
+Germany,DEU,2014,3889.09,Europe
+France,FRA,2014,2855.96,Europe
+United Kingdom,GBR,2014,3064.71,Europe
+India,IND,2014,2039.13,Asia
+Italy,ITA,2014,2162.01,Europe
+Japan,JPN,2014,4896.99,Asia
+United States,USA,2014,17608.1,North America
+Brazil,BRA,2015,1802.21,South America
+Canada,CAN,2015,1556.51,North America
+China,CHN,2015,11061.6,Asia
+Germany,DEU,2015,3357.59,Europe
+France,FRA,2015,2439.19,Europe
+United Kingdom,GBR,2015,2927.91,Europe
+India,IND,2015,2103.59,Asia
+Italy,ITA,2015,1836.64,Europe
+Japan,JPN,2015,4444.93,Asia
+United States,USA,2015,18295.0,North America
+Brazil,BRA,2016,1795.69,South America
+Canada,CAN,2016,1527.99,North America
+China,CHN,2016,11233.3,Asia
+Germany,DEU,2016,3469.85,Europe
+France,FRA,2016,2472.96,Europe
+United Kingdom,GBR,2016,2689.11,Europe
+India,IND,2016,2294.8,Asia
+Italy,ITA,2016,1877.07,Europe
+Japan,JPN,2016,5003.68,Asia
+United States,USA,2016,18804.9,North America
+Brazil,BRA,2017,2063.51,South America
+Canada,CAN,2017,1649.27,North America
+China,CHN,2017,12310.5,Asia
+Germany,DEU,2017,3690.85,Europe
+France,FRA,2017,2595.15,Europe
+United Kingdom,GBR,2017,2680.15,Europe
+India,IND,2017,2651.47,Asia
+Italy,ITA,2017,1961.8,Europe
+Japan,JPN,2017,4930.84,Asia
+United States,USA,2017,19612.1,North America
+Brazil,BRA,2018,1916.93,South America
+Canada,CAN,2018,1725.33,North America
+China,CHN,2018,13894.9,Asia
+Germany,DEU,2018,3974.44,Europe
+France,FRA,2018,2790.96,Europe
+United Kingdom,GBR,2018,2871.34,Europe
+India,IND,2018,2702.93,Asia
+Italy,ITA,2018,2091.93,Europe
+Japan,JPN,2018,5040.88,Asia
+United States,USA,2018,20656.5,North America
+Brazil,BRA,2019,1873.29,South America
+Canada,CAN,2019,1743.73,North America
+China,CHN,2019,14280.0,Asia
+Germany,DEU,2019,3889.18,Europe
+France,FRA,2019,2728.87,Europe
+United Kingdom,GBR,2019,2851.41,Europe
+India,IND,2019,2835.61,Asia
+Italy,ITA,2019,2011.3,Europe
+Japan,JPN,2019,5117.99,Asia
+United States,USA,2019,21521.4,North America
+Brazil,BRA,2020,1476.11,South America
+Canada,CAN,2020,1655.68,North America
+China,CHN,2020,14687.7,Asia
+Germany,DEU,2020,3887.73,Europe
+France,FRA,2020,2647.42,Europe
+United Kingdom,GBR,2020,2697.81,Europe
+India,IND,2020,2674.85,Asia
+Italy,ITA,2020,1897.46,Europe
+Japan,JPN,2020,5055.59,Asia
+United States,USA,2020,21323.0,North America
+Brazil,BRA,2021,1670.65,South America
+Canada,CAN,2021,2007.47,North America
+China,CHN,2021,17820.5,Asia
+Germany,DEU,2021,4278.5,Europe
+France,FRA,2021,2959.36,Europe
+United Kingdom,GBR,2021,3141.51,Europe
+India,IND,2021,3167.27,Asia
+Italy,ITA,2021,2154.88,Europe
+Japan,JPN,2021,5034.62,Asia
+United States,USA,2021,23594.0,North America
+Brazil,BRA,2022,1951.92,South America
+Canada,CAN,2022,2161.48,North America
+China,CHN,2022,17881.8,Asia
+Germany,DEU,2022,4082.47,Europe
+France,FRA,2022,2779.09,Europe
+United Kingdom,GBR,2022,3088.84,Europe
+India,IND,2022,3353.47,Asia
+Italy,ITA,2022,2066.97,Europe
+Japan,JPN,2022,4256.41,Asia
+United States,USA,2022,25744.1,North America
+Brazil,BRA,2023,2173.67,South America
+Canada,CAN,2023,2140.09,North America
+China,CHN,2023,17794.8,Asia
+Germany,DEU,2023,4456.08,Europe
+France,FRA,2023,3030.9,Europe
+United Kingdom,GBR,2023,3340.03,Europe
+India,IND,2023,3549.92,Asia
+Italy,ITA,2023,2254.85,Europe
+Japan,JPN,2023,4212.95,Asia
+United States,USA,2023,27360.9,North America
