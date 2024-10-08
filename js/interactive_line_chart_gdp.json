@@ -6,14 +6,6 @@
   },
   "vconcat": [
     {
-      "description": "Main chart showing GDP by country with color-coded continents.",
-      "title": {
-        "text": "Top 10 GDP Countries in Recent Years",
-        "font": "Georgia",
-        "fontSize": 30,
-        "anchor": "middle",
-        "color": "black"
-      },
       "width": 500,
       "height": 300,
       "mark": {"type": "line", "point": {"filled": true, "size": 50}},
