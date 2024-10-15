@@ -1,0 +1,134 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "vconcat": [
+    {
+      "width": 800,
+      "height": 500,
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/life_expectancy_continent.csv",
+        "format": {"type": "csv"}
+      },
+      "title": {
+        "text": "Regional Life Expectancy Over Year",
+        "fontSize": 30,
+        "font": "Helvetica",
+        "anchor": "middle"
+      },
+      "mark": {
+        "type": "line",
+        "point": {"filled": true, "size": 50},
+        "interpolate": "monotone"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year",
+          "scale": {"domain": {"param": "brush"}},
+          "axis": {
+            "format": "%Y",
+            "titleFont": "Helvetica",
+            "titleFontSize": 16,
+            "labelFont": "Helvetica",
+            "labelFontSize": 14
+          }
+        },
+        "y": {
+          "field": "Period life expectancy at birth - Sex: all - Age: 0",
+          "type": "quantitative",
+          "title": "Life Expectancy",
+          "scale": {"domain": [0, 100]},
+          "axis": {
+            "values": [0, 25, 50, 75, 100],
+            "titleFont": "Helvetica",
+            "titleFontSize": 16,
+            "labelFont": "Helvetica",
+            "labelFontSize": 14
+          }
+        },
+        "color": {
+          "field": "Entity",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Africa", "Americas", "Asia", "Europe", "Oceania"],
+            "range": ["#17BECF", "#D6274D", "#1F77B4", "#FF7F0E", "#9467BD"]
+          },
+          "legend": {
+            "title": "Region",
+            "titleFont": "Helvetica",
+            "labelFont": "Helvetica"
+          }
+        },
+        "opacity": {"condition": {"param": "hover", "value": 1}, "value": 0.2},
+        "tooltip": [
+          {"field": "Year", "type": "temporal", "title": "Year"},
+          {
+            "field": "Period life expectancy at birth - Sex: all - Age: 0",
+            "type": "quantitative",
+            "title": "Life Expectancy"
+          },
+          {"field": "Entity", "type": "nominal", "title": "Region"}
+        ],
+        "detail": {"field": "Entity"}
+      },
+      "params": [
+        {
+          "name": "hover",
+          "select": {
+            "type": "point",
+            "fields": ["Entity"],
+            "on": "mouseover",
+            "clear": "mouseout"
+          }
+        }
+      ]
+    },
+    {
+      "description": "Brush chart for selecting the time range",
+      "width": 800,
+      "height": 80,
+      "data": {
+        "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/life_expectancy_continent.csv",
+        "format": {"type": "csv"}
+      },
+      "mark": "point",
+      "params": [
+        {"name": "brush", "select": {"type": "interval", "encodings": ["x"]}}
+      ],
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year",
+          "axis": {
+            "format": "%Y",
+            "titleFont": "Helvetica",
+            "titleFontSize": 16,
+            "labelFont": "Helvetica",
+            "labelFontSize": 14
+          }
+        },
+        "y": {
+          "field": "Period life expectancy at birth - Sex: all - Age: 0",
+          "title": "Life Expectancy",
+          "type": "quantitative",
+          "axis": {
+            "grid": false,
+            "values": [0, 50, 100],
+            "titleFont": "Helvetica",
+            "titleFontSize": 16,
+            "labelFont": "Helvetica",
+            "labelFontSize": 14
+          },
+          "scale": {"domain": [0, 100]}
+        },
+        "color": {"value": "lightgray"}
+      }
+    }
+  ],
+  "config": {
+    "axis": {"labelFont": "Helvetica", "titleFont": "Helvetica"},
+    "legend": {"labelFont": "Helvetica", "titleFont": "Helvetica"},
+    "header": {"labelFont": "Helvetica", "titleFont": "Helvetica"}
+  }
+}

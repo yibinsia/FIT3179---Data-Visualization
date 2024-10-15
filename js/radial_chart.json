@@ -1,0 +1,107 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Radial chart showing the distribution of GDP by region (2023) with annotation text for Asia and Americas.",
+  "title": {
+    "text": "GDP Distribution by Region",
+    "fontSize": 30,
+    "font": "Helvetica",
+    "anchor": "middle"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP2023.csv"
+  },
+  "width": 500,
+  "height": 500,
+  "transform": [
+    {
+      "aggregate": [{"op": "sum", "field": "GDP", "as": "Total_GDP"}],
+      "groupby": ["region"]
+    },
+    {
+      "window": [{"op": "sum", "field": "Total_GDP", "as": "Global_GDP"}],
+      "frame": [null, null]
+    },
+    {
+      "calculate": "datum.Total_GDP / datum.Global_GDP * 100",
+      "as": "GDP_Percentage"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "arc", "innerRadius": 30, "stroke": "#fff"},
+      "encoding": {
+        "theta": {"field": "Total_GDP", "type": "quantitative", "stack": true},
+        "radius": {
+          "field": "Total_GDP",
+          "scale": {"type": "sqrt", "zero": true, "rangeMin": 60}
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Americas", "Europe", "Africa", "Asia", "Oceania"],
+            "range": ["#D6274D", "#FF7F0E", "#17BECF", "#1F77B4", "#9467BD"]
+          },
+          "legend": {
+            "title": "Region",
+            "titleFont": "Helvetica",
+            "labelFont": "Helvetica"
+          }
+        },
+        "tooltip": [
+          {"field": "region", "type": "nominal", "title": "Region"},
+          {
+            "field": "Total_GDP",
+            "type": "quantitative",
+            "title": "Total GDP",
+            "format": ".2f"
+          },
+          {
+            "field": "GDP_Percentage",
+            "type": "quantitative",
+            "title": "Percentage of Global GDP",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "font": "Helvetica",
+        "align": "center",
+        "dx": 150,
+        "dy": 150
+      },
+      "encoding": {
+        "text": {
+          "value": "Asia and Americas together contribute around 70% of the total GDP."
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 25,
+        "fontSize": 12,
+        "font": "Helvetica",
+        "align": "center"
+      },
+      "encoding": {
+        "text": {
+          "field": "GDP_Percentage",
+          "type": "quantitative",
+          "format": ".2f"
+        },
+        "theta": {"field": "Total_GDP", "type": "quantitative", "stack": true},
+        "radius": {
+          "field": "Total_GDP",
+          "scale": {"type": "sqrt", "zero": true, "rangeMin": 60}
+        },
+        "color": {"field": "region", "type": "nominal", "legend": null}
+      }
+    }
+  ],
+  "config": {}
+}
