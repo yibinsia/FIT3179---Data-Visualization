@@ -1,0 +1,170 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP2023.csv"
+  },
+  "title": {
+    "text": "Correlation between Life Expectancy and GDP of Each Country",
+    "fontSize": 30,
+    "font": "Helvetica",
+    "anchor": "middle"
+  },
+  "params": [
+    {
+      "name": "GDP_Above",
+      "value": 0,
+      "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 30000,
+        "step": 0.01,
+        "name": "Minimum GDP: "
+      }
+    },
+    {
+      "name": "Continent_selection",
+      "bind": {
+        "input": "select",
+        "options": [null, "Americas", "Europe", "Africa", "Asia", "Oceania"],
+        "labels": [
+          "Show All",
+          "Americas",
+          "Europe",
+          "Africa",
+          "Asia",
+          "Oceania"
+        ],
+        "name": "Continent Selection: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.GDP > GDP_Above"},
+    {
+      "filter": "Continent_selection == null || datum.region == Continent_selection"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "GDP",
+      "type": "quantitative",
+      "title": "GDP (USD Billions)",
+      "axis": {
+        "tickCount": 7,
+        "titleFont": "Helvetica",
+        "titleFontSize": 16,
+        "labelFont": "Helvetica",
+        "labelFontSize": 14
+      },
+      "scale": {"type": "log", "domain": [0.01, 100000]}
+    },
+    "y": {
+      "field": "2023 Life Expectancy",
+      "type": "quantitative",
+      "title": "Life Expectancy (2023)",
+      "axis": {
+        "tickCount": 7,
+        "titleFont": "Helvetica",
+        "titleFontSize": 16,
+        "labelFont": "Helvetica",
+        "labelFontSize": 14
+      },
+      "scale": {"domain": [50, 90]}
+    }
+  },
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "Population",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [1000000, 10000000, 50000000, 100000000, 500000000],
+            "range": [10, 50, 150, 200, 300, 400]
+          },
+          "legend": {
+            "format": ".1s",
+            "orient": "bottom-right",
+            "anchor": "end",
+            "title": "Population"
+          }
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "scale": {
+            "domain": ["Americas", "Europe", "Africa", "Asia", "Oceania"],
+            "range": ["#D6274D", "#FF7F0E", "#17BECF", "#1F77B4", "#9467BD"]
+          },
+          "legend": {"orient": "bottom-right", "title": "Region"}
+        },
+        "opacity": {"value": 0.6},
+        "tooltip": [
+          {
+            "field": "Country Name",
+            "type": "nominal",
+            "title": "Country",
+            "fontWeight": "bold"
+          },
+          {
+            "field": "GDP",
+            "type": "quantitative",
+            "title": "GDP (USD Billions)",
+            "format": ",.2f",
+            "fontWeight": "bold"
+          },
+          {
+            "field": "Population",
+            "type": "quantitative",
+            "title": "Population",
+            "format": ",.0f",
+            "fontWeight": "bold"
+          },
+          {
+            "field": "2023 Life Expectancy",
+            "type": "quantitative",
+            "title": "Life Expectancy",
+            "format": ".2f",
+            "fontWeight": "bold"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -12,
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "font": "Helvetica"
+      },
+      "encoding": {
+        "text": {"field": "Country Name", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum['Country Name'] == 'China' || datum['Country Name'] == 'Japan' || datum['Country Name'] == 'India' || datum['Country Name'] == 'Macao, China' || datum['Country Name'] == 'Germany' || datum['Country Name'] == 'United States' || datum['Country Name'] == 'Malaysia' || datum['Country Name'] == 'Chad' ",
+            "value": 1
+          },
+          "value": 0
+        }
+      }
+    }
+  ],
+  "config": {
+    "axis": {"labelFont": "Helvetica", "titleFont": "Helvetica"},
+    "legend": {
+      "labelFont": "Helvetica",
+      "titleFont": "Helvetica",
+      "cornerRadius": 8,
+      "padding": 5
+    },
+    "header": {"labelFont": "Helvetica", "titleFont": "Helvetica"}
+  }
+}
