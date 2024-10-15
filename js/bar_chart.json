@@ -1,0 +1,85 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Horizontal bar chart showing the distribution of GDP by region (2023) with GDP percentage annotations.",
+  "data": {
+    "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP2023.csv"
+  },
+  "width": 400,
+  "height": 300,
+  "transform": [
+    {
+      "aggregate": [{"op": "sum", "field": "GDP", "as": "Total_GDP"}],
+      "groupby": ["region"]
+    },
+    {
+      "window": [{"op": "sum", "field": "Total_GDP", "as": "Global_GDP"}],
+      "frame": [null, null]
+    },
+    {
+      "calculate": "datum.Total_GDP / datum.Global_GDP * 100",
+      "as": "GDP_Percentage"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "bar"},
+      "encoding": {
+        "y": {
+          "field": "region",
+          "type": "nominal",
+          "title": "Region",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "Total_GDP",
+          "type": "quantitative",
+          "title": "Total GDP (USD Billions)",
+          "axis": {"format": ".2s"}
+        },
+        "color": {
+          "field": "region",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": ["Americas", "Europe", "Africa", "Asia", "Oceania"],
+            "range": ["#D6274D", "#FF7F0E", "#17BECF", "#1F77B4", "#9467BD"]
+          }
+        },
+        "tooltip": [
+          {"field": "region", "type": "nominal", "title": "Region"},
+          {
+            "field": "Total_GDP",
+            "type": "quantitative",
+            "title": "Total GDP",
+            "format": ".2f"
+          },
+          {
+            "field": "GDP_Percentage",
+            "type": "quantitative",
+            "title": "Percentage of Global GDP",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "fontSize": 12,
+        "font": "Helvetica"
+      },
+      "encoding": {
+        "y": {"field": "region", "type": "nominal", "sort": "-x"},
+        "x": {"field": "Total_GDP", "type": "quantitative"},
+        "text": {
+          "field": "GDP_Percentage",
+          "type": "quantitative",
+          "format": ".2f"
+        }
+      }
+    }
+  ],
+  "config": {}
+}
