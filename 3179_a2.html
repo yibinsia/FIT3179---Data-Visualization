@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global GDP Overview Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Helvetica', sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    .main-title {
+      text-align: center;
+      font-weight: bold;
+      color: #2b2b2b;
+      padding: 20px 0;
+      font-size: 6em;
+      background-color: #e2e6fd;
+      margin: 0;
+      font-family: 'Merriweather', serif;
+    }
+
+    .centered-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .description {
+      margin: 20px auto;
+      font-size: 1.1em;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .chart-description {
+      margin: 20px auto;
+      font-size: 1.1em;
+      max-width: 800px;
+      text-align: justify;
+    }
+
+    .description strong,
+    .chart-description strong {
+      font-size: 1.3em;
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px 0;
+    }
+
+    .visualization {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .full-width-background {
+      background-color: #e2e6fd;
+      padding: 20px 0;
+      margin: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .full-width-background h2 {
+      text-align: center;
+      font-weight: bold;
+      color: #2b2b2b;
+      font-size: 3.5em;
+      margin: 0;
+      font-family: 'Merriweather', serif;
+    }
+
+    /* Updated styling for section titles */
+    h2 {
+      font-family: 'Merriweather', serif;
+      font-weight: 900;
+      color: #2b2b2b;
+      font-size: 3.5em;
+      background-color: #e2e6fd;
+      padding: 20px;
+      text-align: center;
+      margin: 0;
+      border-radius: 5px;
+    }
+
+    .frame-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .line-chart {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Footer styling */
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 0.9em;
+      font-family: 'Merriweather', sans-serif;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+
+  <div class="main-title">Global GDP Overview</div>
+  
+  <div class="centered-container">
+    <p class="description"><strong>Gross Domestic Product (GDP)</strong> measures the market value of goods and services over a time period, produced by a country or countries.</p>
+
+    <div class="section">
+      <div id="choropleth_map" class="visualization"></div>
+      <p class="chart-description">
+        Although <span style="color: #FF7F0E; font-weight: bold;font-size: 1.3em;">Europe</span> has several leading GDP countries, the <strong>United States</strong> and <strong>China</strong> still hold the top two positions globally. 
+        The combined GDP of all top <span style="color: #FF7F0E; font-weight: bold;font-size: 1.3em;">European</span> countries does not even come close to the GDP of the <strong>United States</strong>! 
+        While many countries in <span style="color: #17BECF; font-weight: bold; font-size: 1.3em;">Africa</span> have comparatively lower GDPs on a global scale.
+      </p>
+    </div>
+  </div>
+
+  <div class="full-width-background">
+    <h2>GDP distribution by region</h2>
+  </div>
+
+  <div class="centered-container">
+    <div class="frame-container">
+      <div id="choropleth_map_continent" class="visualization"></div>
+      <div id="bar_chart" class="visualization"></div>
+      <p class="chart-description"><span style="color: #1F77B4; font-weight: bold; font-size: 1.3em;">Asia</span>, 
+        <span style="color: #D6274D; font-weight: bold; font-size: 1.3em;">Americas</span>, and <span style="color: #FF7F0E; font-weight: bold;font-size: 1.3em;">Europe</span> 
+        contribute nearly <strong>95%</strong> of the global GDP.</p>
+    </div>
+
+    <p class="description">
+      Which countries are the main GDP contributors in 
+      <span style="color: #1F77B4; font-weight: bold; font-size: 1.3em;">Asia</span>, 
+      <span style="color: #D6274D; font-weight: bold; font-size: 1.3em;">Americas</span>, and 
+      <span style="color: #FF7F0E; font-weight: bold; font-size: 1.3em;">Europe</span>?<br>
+      Let’s look into the <strong>TOP 10</strong> over the recent years!
+    </p>
+    
+    
+    <div class="line-chart">
+      <div id="line_chart_gdp" class="visualization"></div>
+      <p class="chart-description">
+        All of the top 10 GDP leaders are from <span style="color: #D6274D; font-weight: bold; font-size: 1.3em;">Americas</span>, 
+        <span style="color: #1F77B4; font-weight: bold; font-size: 1.3em;">Asia</span>, and <span style="color: #FF7F0E; font-weight: bold;font-size: 1.3em;">Europe</span>, 
+        illustrating why these regions contribute nearly <strong>95%</strong> of the world's total GDP. Most of the top countries range between <strong>2,000 billion</strong> to <strong>4,000 billion</strong> USD, while the <strong>United States</strong> and <strong>China</strong> hold the highest GDP, ranking as the top two leaders globally.
+      </p>
+    </div>  
+
+  
+  <div class="full-width-background">
+    <h2>Further Analysis <br><span style="font-size: 0.7em;">Will higher GDP lead to higher life expectancies?</span></h2>
+  </div>
+  
+  <div class="centered-container">
+    <p class="description"><strong>Human life expectancy</strong> represents an estimate of remaining years at a given age.</p>
+    
+    <div class="section">
+      <div id="line_chart_life_expectancy" class="visualization"></div>
+      <p class="chart-description"><span style="color: #9467BD; font-weight: bold; font-size: 1.3em;">Oceania</span> has the highest life expectancy, reaching around 80 years. 
+        <span style="color: #FF7F0E; font-weight: bold; font-size: 1.3em;">Europe</span> follows with about 77 years, <span style="color: #D6274D; font-weight: bold; font-size: 1.3em;">Americas</span> at 75 years, 
+        and <span style="color: #1F77B4; font-weight: bold; font-size: 1.3em;">Asia</span> close to 72.5 years. <span style="color: #17BECF; font-weight: bold; font-size: 1.3em;">Africa</span> shows a gap, with a lower average of 60 years.
+      </p>
+    </div>
+
+    <div class="centered-container">
+      <div id="bubble_plot" class="visualization"></div>
+      <p class="chart-description"><strong>Macao</strong> from <strong>China</strong> holds the highest life expectancy worldwide. Major GDP leaders like <strong>Japan</strong>, <strong>China</strong>, <strong>United States</strong>, and <strong>Germany</strong> generally have life expectancy rates of 75-85 years. However, <strong>India</strong>, a GDP leader with a large population, has lower life expectancy, likely due to living conditions. <strong>Chad</strong> ranks the lowest worldwide, with just 53 years.</p>
+      <p class="chart-description">Many <span style="color: #17BECF; font-weight: bold; font-size: 1.3em;">African</span> countries have lower life expectancies, 
+        reflecting GDP-related limitations in healthcare, nutrition, and infrastructure access.
+        This shows that life expectancy is generally higher in regions with higher GDPs, 
+        and <span style="color: #9467BD; font-weight: bold; font-size: 1.3em;">Oceania</span> countries could be the most developed in terms of healthcare and living conditions.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2024 Sia Yi Bin. All rights reserved. <br>
+    Dataset Source: 
+    <a href="https://data.worldbank.org/indicator/NY.GDP.MKTP.CD" target="_blank" style="color: #ffffff;">World Bank</a>, 
+    <a href="https://ourworldindata.org/life-expectancy" target="_blank" style="color: #ffffff;">Our World in Data</a>.
+  </div>
+
+  <script type="text/javascript">
+    var choropleth_gdp_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/choropleth_gdp.json";
+    var choropleth_continent_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/choropleth_region.json";
+    var bar_chart_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/bar_chart.json";
+    var line_chart_gdp_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/line_chart_gdp_interactive.json";
+    var line_chart_life_expectancy_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/line_chart_le.json";
+    var bubble_plot_url = "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/js/bubble_chart_interactive.json";
+
+    vegaEmbed('#choropleth_map', choropleth_gdp_url, { "actions": false, "width": 800, "height": 500 })
+      .then(result => result.view.run())
+      .catch(console.error);
+
+    vegaEmbed('#choropleth_map_continent', choropleth_continent_url, { "actions": false, "width": 800, "height": 500 })
+      .then(result => result.view.run())
+      .catch(console.error);
+
+    vegaEmbed('#bar_chart', bar_chart_url, { "actions": false, "width": 700, "height": 200 })
+      .then(result => result.view.run())
+      .catch(console.error);
+
+    vegaEmbed('#line_chart_gdp', line_chart_gdp_url, { "actions": false, "width": 700, "height": 400 })
+      .then(result => result.view.run())
+      .catch(console.error);
+
+    vegaEmbed('#line_chart_life_expectancy', line_chart_life_expectancy_url, { "actions": false, "width": 700, "height": 500 })
+      .then(result => result.view.run())
+      .catch(console.error);
+
+    vegaEmbed('#bubble_plot', bubble_plot_url, { "actions": false, "width": 700, "height": 500 })
+      .then(result => result.view.run())
+      .catch(console.error);
+  </script>
+
+</body>
+</html>
