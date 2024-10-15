@@ -11,7 +11,7 @@
     "url": "https://raw.githubusercontent.com/yibinsia/FIT3179---Data-Visualization/main/data/GDP2023.csv"
   },
   "width": 500,
-  "height": 500,
+  "height": 580,
   "transform": [
     {
       "aggregate": [{"op": "sum", "field": "GDP", "as": "Total_GDP"}],
